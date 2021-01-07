@@ -3,13 +3,13 @@ import Carousel from './Carousel';
 import Kitchenitem from './kitechen-info';
 import Menu from './Menu';
 import Product from '../product';
-import { Grid } from '@material-ui/core';
-import Slider from "react-slick";
+import Category from '../category';
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            categoryName:"New Category 1 ",
             products:[
                 {
                     id: "1",
@@ -30,6 +30,54 @@ export default class Home extends Component {
                     imgUrl: 'images/of2.png'
                 }
             ],
+            categories:[
+                {
+                    categoryName:"New Category 1",
+                    products:[
+                        {
+                            id: "1",
+                            name: 'Moong',
+                            price: 1.50,
+                            imgUrl: 'images/of.png'
+                        },
+                        {
+                            id: "2",
+                            name: 'Sunflower oil',
+                            price: 9.00,
+                            imgUrl: 'images/of1.png'
+                        },
+                        {
+                            id: "3",
+                            name: 'Kabuli Chana',
+                            price: 3.00,
+                            imgUrl: 'images/of2.png'
+                        }
+                    ],
+                },
+                {
+                    categoryName:"New Category 2",
+                    products:[
+                        {
+                            id: "1",
+                            name: 'Lays',
+                            price: 3.40,
+                            imgUrl: 'images/of4.png'
+                        },
+                        {
+                            id: "2",
+                            name: 'Kurkure',
+                            price: 2.90,
+                            imgUrl: 'images/of5.png'
+                        },
+                        {
+                            id: "3",
+                            name: 'Popcorn',
+                            price: 4.00,
+                            imgUrl: 'images/of6.png'
+                        }
+                    ],
+                }
+            ]
         };
     }
 
@@ -37,6 +85,10 @@ export default class Home extends Component {
 
         const renderProduct = this.state.products.map(product => (
             <Product item={product}/>
+        ));
+
+        const renderCategory = this.state.categories.map(category => (
+            <Category categoryName={category.categoryName} products={category.products}/>
         ));
 
         var settings = {
@@ -54,13 +106,7 @@ export default class Home extends Component {
             
                 <Carousel />
                 <Menu />
-                <Grid container >
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ marginTop: '9rem' }}>
-                <Slider {...settings}>
-                {renderProduct}
-               </Slider>
-                </Grid>
-                </Grid>
+                {renderCategory}
                 <Kitchenitem />
 
             </div>
