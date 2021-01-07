@@ -7,7 +7,7 @@ import { Grid } from '@material-ui/core';
 import Slider from "react-slick";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-
+import Category from '../category';
 
 const LABELS_QUERY = gql`
  {
@@ -50,6 +50,57 @@ export default function Home(props) {
         ]
     )
 
+    const [categories, setCategories] = useState(
+        [
+            {
+                categoryName:"New Category 1",
+                products:[
+                    {
+                        id: "1",
+                        name: 'Moong',
+                        price: 1.50,
+                        imgUrl: 'images/of.png'
+                    },
+                    {
+                        id: "2",
+                        name: 'Sunflower oil',
+                        price: 9.00,
+                        imgUrl: 'images/of1.png'
+                    },
+                    {
+                        id: "3",
+                        name: 'Kabuli Chana',
+                        price: 3.00,
+                        imgUrl: 'images/of2.png'
+                    }
+                ],
+            },
+            {
+                categoryName:"New Category 2",
+                products:[
+                    {
+                        id: "1",
+                        name: 'Lays',
+                        price: 3.40,
+                        imgUrl: 'images/of4.png'
+                    },
+                    {
+                        id: "2",
+                        name: 'Kurkure',
+                        price: 2.90,
+                        imgUrl: 'images/of5.png'
+                    },
+                    {
+                        id: "3",
+                        name: 'Popcorn',
+                        price: 4.00,
+                        imgUrl: 'images/of6.png'
+                    }
+                ],
+            }
+        ]
+    )
+
     const { data, loading } = useQuery(LABELS_QUERY);
     if (loading) {
         return "Loading...";
@@ -62,7 +113,9 @@ export default function Home(props) {
     const renderProduct = products.map(product => (
         <Product item={product}/>
     ));
-
+    const renderCategory = categories.map(category => (
+        <Category categoryName={category.categoryName} products={category.products}/>
+    ));
 
             const settings = {
             dots: false,
@@ -77,7 +130,7 @@ export default function Home(props) {
     return (
         <div>
         
-            <Carousel />
+            {/* <Carousel />
             <Menu />
             <Grid container >
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ marginTop: '9rem' }}>
@@ -86,8 +139,11 @@ export default function Home(props) {
            </Slider>
             </Grid>
             </Grid>
-            <Kitchenitem />
-
+            <Kitchenitem /> */}
+            <Carousel />
+                <Menu />
+                {renderCategory}
+                <Kitchenitem />
         </div>
     )
 }
